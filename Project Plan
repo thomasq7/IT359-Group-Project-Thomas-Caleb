@@ -1,1 +1,74 @@
+Overview 
+  - Phishing email analyzer. The project would focus on creating a Python tool used to analyze emails that seem suspicious. It will examine everything the email contains, from the header to the spelling and grammar used.   
 
+- Besides creating a function analyzer tool, we want to be able to have the analysis state a risk score, as well as a small explanation of why the email seems fake. We will also test the tool with real emails as well to make sure it doesn’t falsely flag those as fake.  
+  - 8/30-11/28 
+
+  Stakeholders 
+  - The project sponsor isn’t anyone or any organization-specific yet, but if our tool can be completed exceeding our expectations, we would promptly promote it and look for ways to launch this online.  
+  - The stakeholder list will have the following roles: project developers, testers, researchers, and project sponsors. Caleb and I will both split the roles of project developer, tester, and researcher evenly, while the project sponsor may change depending on whether we find anyone at the beginning of the project or not.  
+
+  Scope Management 
+  - In-scope items 
+
+The project will include email header and email user analysis. It will provide a risk analysis with a score rating as well as a small explanation on why it thinks it’s risky. It will detect keywords and grammatical errors commonly found in phishing emails.  
+  - Out-of-scope items 
+
+The project will not delete fake emails as well as executing any malware or applications a scam email may come with. It will also not block emails from fake accounts that are sending them 
+  - Project assumptions and constraints 
+
+You could assume that the project will be done on Spyder using Python. The emails used to determine if they are fake will all be crafted with AI or found online, so we don’t accidentally upload malware into the tester.  
+
+Some constraints with this project will be that we may not find enough phishing emails to submit into the analyzer so we can perfect it. Another issue may be the limited database Python has when conducting the analysis. Lastly, the tool isn’t going to be 100% right all the time, so sometimes it may flag real emails as fake or miss things in phishing emails that would be spotted by a human.  
+
+  Timeline From 8/30 to 11/28 
+Week 1- Plan the project and go over the entire scope of things and make sure we are starting on the same page and on the right track 
+
+Week 2- Begin research on project  
+
+Week 3- Begin development of Python tool 
+
+Week 4- Continue development of Python tool 
+
+Week 5- Finish up Python development 
+
+Week 6- Begin basic testing  
+
+Week 7- Deploy patches if needed  
+
+Week 8- Retest analyzer and go through deliverable checklist 
+
+Week 9- Fine-tune scoring 
+
+Week 10- Polish and finalize GitHub project page 
+
+Week 11- Complete final testing 
+
+Week 12- Finishing touches and create project video 
+
+Week 13- Practice for presentation 
+
+  Risk Management 
+  - Identified risks with impact/probability assessments 
+
+The risks associated with this project can be Python library problems with the word database we use to detect fake emails, the analyzer incorrectly identifying real emails as fake and vice versa, and the project taking too long to complete due to our little knowledge of Python.  
+
+  Resources 
+  - Budget allocation 
+
+None- Spyder is a free Python tool. 
+  - Required tools and technology 
+
+Computer to Run Python 
+  - Project dependencies 
+
+Using basic AI coding to help get rid of bugs and ensure the Python environment works in the correct state. 
+
+  Communication 
+  - We will both figure out dates where we can meet outside of class through iMessage communication. Will presume to meet once a week if needed; it could stretch to every other week.  
+  - iMessage and Outlook email 
+
+  Action Items 
+  - Actionable tasks with owners, due dates, and GSD sync capability (items can be pushed to the main GSD inbox for tracking) 
+
+The development of the Python script, as well as everything else for the project, will be completed and done weekly by me and Caleb. As for our targets, we want to start developing the Python environment by the 13th of September, with testing being done by the 4th of October. Once that is done, the remainder of the time will be spent fixing any issues and completing the video and GitHub for the final submission of the project.  
