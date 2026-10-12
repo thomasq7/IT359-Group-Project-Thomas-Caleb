@@ -1,1 +1,69 @@
-
+phishing_emails = {
+    "PayPal spoof (look-alike domain + failed auth)": """\
+From: "PayPal Security" <service@paypa1-secure.com>
+Reply-To: support@mail-helpdesk.xyz
+To: victim@example.com
+Subject: URGENT: Your account has been suspended
+Date: Mon, 1 Sep 2025 10:00:00 -0500
+Authentication-Results: mx.example.com; spf=fail smtp.mailfrom=paypa1-secure.com; dkim=none; dmarc=fail
+Content-Type: text/html; charset=utf-8
+ 
+<html><body>
+<p>Dear customer,</p>
+<p>We recieve unusual activity on your acount. Your account will be suspended within 24 hours!!
+You must verify your account immediately.</p>
+<p><a href="http://paypa1-secure.com.verify-login.xyz/signin">www.paypal.com/verify</a></p>
+</body></html>
+""",
+ 
+    "Microsoft password email with IP link": """\
+From: Microsoft Support <no-reply@secure-account-check.top>
+To: victim@example.com
+Subject: Confirm your password now
+Date: Tue, 2 Sep 2025 09:30:00 -0500
+Content-Type: text/plain
+ 
+Dear user,
+ 
+Your Microsoft password will expire today. Please confirm your password and update your password
+immediately to avoid your account has been locked. Click here: http://192.168.44.12/login.php
+ 
+kindly do the needful. Thanks
+""",
+ 
+    "CEO gift card scam (free email + reply-to)": """\
+From: "Dr. Alan Whitmore - CEO" <alan.whitmore.ceo@gmail.com>
+Reply-To: awhitmore.office@proton.me
+To: finance@example.com
+Subject: Urgent request
+Date: Wed, 3 Sep 2025 14:00:00 -0500
+Content-Type: text/plain
+ 
+Are you at your desk?? I need you to buy gift card for a client. It is urgent and confidential,
+i will reimburse you. Reply right away with the card numbers. do not call me, i am in a meeting
+and cannot talk.
+""",
+ 
+    "Fake invoice with executable attachment": """\
+From: Accounts <billing@invoice-delivery-center.click>
+To: victim@example.com
+Subject: Final notice - invoice attached
+Date: Thu, 4 Sep 2025 08:00:00 -0500
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="BOUND"
+ 
+--BOUND
+Content-Type: text/plain
+ 
+Dear client, please see attached invoice. Open the attached file immediately,
+payment is overdue and legal action may follow.
+ 
+--BOUND
+Content-Type: application/octet-stream; name="Invoice_8841.pdf.exe"
+Content-Disposition: attachment; filename="Invoice_8841.pdf.exe"
+Content-Transfer-Encoding: base64
+ 
+VGhpcyBpcyBhIGZha2UgdGVzdCBhdHRhY2htZW50Lg==
+--BOUND--
+""",
+}
