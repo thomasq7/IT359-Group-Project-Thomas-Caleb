@@ -1,0 +1,65 @@
+real_emails = {
+    "Friend casual email": """\
+From: Sam Rivera <sam.rivera@gmail.com>
+To: me@example.com
+Subject: Study group Thursday?
+Date: Fri, 5 Sep 2025 18:20:00 -0500
+Message-ID: <CAF123abc@mail.gmail.com>
+Authentication-Results: mx.example.com; spf=pass; dkim=pass; dmarc=pass
+ 
+Hey! Are we still meeting Thursday at 4 in the library to work on the group project?
+I can bring the notes from last week. Let me know if you want me to grab coffee on the way.
+ 
+Thanks,
+Sam
+""",
+ 
+    "Amazon-style shipping notice": """\
+From: "Amazon.com" <shipment-tracking@amazon.com>
+To: me@example.com
+Subject: Your package has shipped
+Date: Sat, 6 Sep 2025 11:05:00 -0500
+Message-ID: <0100019abc@email.amazonses.com>
+Authentication-Results: mx.example.com; spf=pass; dkim=pass; dmarc=pass
+Content-Type: text/html; charset=utf-8
+ 
+<html><body>
+<p>Hello Jordan,</p>
+<p>Your package is on the way and is expected to arrive on Monday. You can view the
+order details or track the package at any time using the link below.</p>
+<p><a href="https://www.amazon.com/progress-tracker/package">www.amazon.com/progress-tracker</a></p>
+<p>Thank you for shopping with us.</p>
+</body></html>
+""",
+ 
+    "University newsletter": """\
+From: Registrar Office <registrar@illinoisstate.edu>
+To: students@illinoisstate.edu
+Subject: Fall registration reminder
+Date: Sun, 7 Sep 2025 07:45:00 -0500
+Message-ID: <20250907.registrar@illinoisstate.edu>
+Authentication-Results: mx.example.com; spf=pass; dkim=pass; dmarc=pass
+ 
+Hello students,
+ 
+This is a reminder that the final day to add or drop a class without a grade of W is
+next Friday. Please contact your academic advisor if you have any questions about your schedule.
+You can find the full academic calendar at https://registrar.illinoisstate.edu/calendar
+ 
+Best regards,
+Office of the Registrar
+""",
+ 
+    "Bank statement notice (real domain)": """\
+From: Chase <no-reply@alertsp.chase.com>
+To: me@example.com
+Subject: Your statement is ready
+Date: Mon, 8 Sep 2025 06:00:00 -0500
+Message-ID: <statement-8841@alertsp.chase.com>
+Authentication-Results: mx.example.com; spf=pass; dkim=pass; dmarc=pass
+ 
+Your monthly statement is now available. Please sign in to the Chase mobile app or visit
+https://www.chase.com to view it. If you did not request this notice, please call the number
+on the back of your card as soon as possible.
+""",
+}
