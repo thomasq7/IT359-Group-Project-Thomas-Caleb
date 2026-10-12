@@ -1,1 +1,149 @@
+import re
+import sys
+from email import policy
+from email.parser import BytesParser
+from email.utils import parseaddr
+from html.parser import HTMLParser
+from urllib.parse import urlparse
 
+# real domains for brands that scammers like to copy
+BRANDS = {
+    "paypal": ["paypal.com"],
+    "microsoft": ["microsoft.com", "outlook.com", "office.com", "live.com", "microsoftonline.com"],
+    "apple": ["apple.com", "icloud.com"],
+    "amazon": ["amazon.com", "amazonaws.com", "amazon.co.uk", "amazon.ca"],
+    "google": ["google.com", "gmail.com", "youtube.com"],
+    "netflix": ["netflix.com"],
+    "facebook": ["facebook.com", "facebookmail.com", "meta.com"],
+    "instagram": ["instagram.com"],
+    "linkedin": ["linkedin.com"],
+    "dropbox": ["dropbox.com"],
+    "docusign": ["docusign.com", "docusign.net"],
+    "chase": ["chase.com"],
+    "wellsfargo": ["wellsfargo.com"],
+    "bankofamerica": ["bankofamerica.com"],
+    "usps": ["usps.com"],
+    "fedex": ["fedex.com"],
+    "dhl": ["dhl.com"],
+    "irs": ["irs.gov"],
+}
+
+# endings that show up a lot in spam/scam domains
+BAD_TLDS = ["xyz", "top", "click", "zip", "work", "tk", "ml", "ga", "cf", "gq",
+            "country", "loan", "win", "review", "icu", "buzz", "cyou", "rest"]
+
+SHORTENERS = ["bit.ly", "tinyurl.com", "t.co", "goo.gl", "ow.ly", "is.gd",
+              "buff.ly", "cutt.ly", "rb.gy", "shorturl.at", "tiny.cc"]
+
+# domains like bbc.co.uk have two parts at the end
+TWO_PART_TLDS = ["co.uk", "com.au", "co.nz", "co.jp", "com.br", "co.in", "org.uk", "ac.uk"]
+
+# phrases that show up a lot in phishing emails
+KEYWORDS = {
+    "urgency": ["act now", "immediately", "urgent", "within 24 hours", "within 48 hours",
+                "as soon as possible", "expires today", "final notice", "last warning",
+                "time sensitive", "right away"],
+    "threats": ["account will be suspended", "account has been suspended",
+                "account will be closed", "account has been locked", "unauthorized activity",
+                "unusual activity", "suspicious activity", "legal action",
+                "permanently disabled", "will be terminated", "access will be limited"],
+    "credential requests": ["verify your account", "confirm your identity",
+                            "confirm your password", "update your password",
+                            "update your payment", "update your billing",
+                            "enter your password", "login to your account",
+                            "log in to verify", "verify your identity",
+                            "social security number", "security question",
+                            "re-enter your", "validate your account"],
+    "money/rewards": ["gift card", "wire transfer", "you have won", "claim your prize",
+                      "lottery", "inheritance", "unclaimed funds", "bitcoin",
+                      "cryptocurrency payment", "refund is pending",
+                      "you are eligible", "free gift"],
+    "generic greeting": ["dear customer", "dear user", "dear account holder", "dear valued",
+                         "dear member", "dear client", "dear sir/madam",
+                         "dear sir or madam", "dear beneficiary"],
+    "odd phrasing": ["kindly", "do the needful", "click here", "click the link below",
+                     "open the attached", "see attached invoice", "confidential and urgent"],
+}
+
+MISSPELLINGS = ["recieve", "acount", "accout", "verfy", "verifiy", "securty", "secuirty",
+                "immediatly", "immediatley", "pasword", "passwrod", "informations",
+                "confirmtion", "suspeneded", "suspened", "responce", "transction",
+                "paymant", "banck", "kindy", "notifcation", "authenticaton"]
+
+BAD_FILES = [".exe", ".scr", ".js", ".vbs", ".bat", ".cmd", ".msi", ".jar", ".iso",
+             ".img", ".lnk", ".ps1", ".hta", ".com", ".pif", ".wsf"]
+MACRO_FILES = [".docm", ".xlsm", ".pptm"]
+ARCHIVES = [".zip", ".rar", ".7z", ".gz", ".tar"]
+NORMAL_FILES = [".pdf", ".doc", ".docx", ".xls", ".xlsx", ".txt", ".jpg", ".png"]
+
+# most points each category can add, so one thing can't max out the score
+CAPS = {"Header": 70, "Links": 55, "Content": 30, "Grammar": 15, "Attachments": 45}
+
+URL_PATTERN = re.compile(r"(?:https?://|www\.)[^\s<>\"')\]]+", re.IGNORECASE)
+IP_PATTERN = re.compile(r"^\d{1,3}(\.\d{1,3}){3}$")
+DOMAIN_PATTERN = re.compile(r"\b[a-z0-9][a-z0-9\-]*(\.[a-z0-9\-]+)*\.[a-z]{2,}\b", re.IGNORECASE)
+
+
+class Result:
+    # holds the final score and everything we found
+    def __init__(self, score, level, findings, explanation):
+        self.score = score
+        self.level = level
+        self.findings = findings  # list of (category, points, message)
+        self.explanation = explanation
+
+    def report(self):
+        lines = []
+        lines.append("=" * 60)
+        lines.append("RISK SCORE: " + str(self.score) + "/100 (" + self.level + " RISK)")
+        lines.append("=" * 60)
+        lines.append(self.explanation)
+        lines.append("")
+        if len(self.findings) == 0:
+            lines.append("Nothing suspicious found.")
+        else:
+            lines.append("Details:")
+            # biggest problems first
+            for category, points, message in sorted(self.findings, key=lambda f: -f[1]):
+                lines.append("  [" + category.ljust(11) + "] +" + str(points).ljust(2) + " " + message)
+        lines.append("")
+        lines.append("Note: this tool isn't perfect. Check with the sender another way")
+        lines.append("before clicking or replying.")
+        return "\n".join(lines)
+
+
+def get_main_domain(host):
+    # turns mail.example.com into example.com
+    host = host.lower().strip(".")
+    parts = host.split(".")
+    if len(parts) <= 2:
+        return host
+    if ".".join(parts[-2:]) in TWO_PART_TLDS:
+        return ".".join(parts[-3:])
+    return ".".join(parts[-2:])
+
+
+def get_tld(host):
+    if "." not in host:
+        return ""
+    return host.lower().split(".")[-1]
+
+
+def fake_brand(domain):
+    # checks if a domain is pretending to be a brand (like paypa1-secure.com)
+    main = get_main_domain(domain)
+    name = main.split(".")[0]
+    # undo letter swaps so paypa1 becomes paypal
+    swapped = name.replace("0", "o").replace("1", "l").replace("rn", "m").replace("vv", "w")
+    other_parts = domain.replace("-", ".").split(".")[:-2]
+
+    for brand in BRANDS:
+        if main in BRANDS[brand]:
+            continue  # it's the real one
+        if name.startswith(brand) or brand in name.split("-"):
+            return brand
+        if swapped != name and brand in swapped:
+            return brand
+        if brand in other_parts:  # like paypal.login-check.xyz
+            return brand
+    return None
