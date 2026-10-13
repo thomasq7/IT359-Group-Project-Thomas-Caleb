@@ -26,55 +26,190 @@ BRANDS = {
     "fedex": ["fedex.com"],
     "dhl": ["dhl.com"],
     "irs": ["irs.gov"],
+    "openai": ["openai.com", "chat.openai.com"],
+    "chatgpt": ["openai.com", "chat.openai.com"],
+    "steam": ["steampowered.com"],
+    "whatsapp": ["whatsapp.com"],
+    "yahoo": ["yahoo.com"],
+    "xfinity": ["xfinity.com"],
+    "tesla": ["tesla.com"],
+    "att": ["att.com"],
+    "telekom": ["telekom.com", "t-mobile.com"],
+    "cpsc": ["cpsc.gov"],
+    "walmart": ["walmart.com"],
+    "nike": ["nike.com"],
+    "ledger": ["ledger.com"],
+    "coinbase": ["coinbase.com"],
+    "youtube": ["youtube.com"],
+    "ups": ["ups.com"],
+    "royalmail": ["royalmail.com"]
+    "citi": ["citi.com"],
+    "capitalone": ["capitalone.com"],
+    "hsbc": ["hsbc.com"],
+    "pnc": ["pnc.com"],
+    "truist": ["truist.com"],
+    "americanexpress": ["americanexpress.com"],
+    "discover": ["discover.com"],
+    "verizon": ["verizon.com"],
+    "tmobile": ["t-mobile.com"],
+    "sprint": ["sprint.com"],
+    "vodafone": ["vodafone.com"],
+    "orange": ["orange.com"],
+    "ebay": ["ebay.com"],
+    "target": ["target.com"],
+    "costco": ["costco.com"],
+    "bestbuy": ["bestbuy.com"],
+    "homeDepot": ["homedepot.com"],
+    "lowes": ["lowes.com"],
+    "shein": ["shein.com"],
+    "aliexpress": ["aliexpress.com"],
+    "etsy": ["etsy.com"],
+    "uber": ["uber.com"],
+    "lyft": ["lyft.com"],
+    "airbnb": ["airbnb.com"],
+    "booking": ["booking.com"],
+    "expedia": ["expedia.com"],
+    "intuit": ["intuit.com", "turbotax.com", "quickbooks.com"],
+    "adobe": ["adobe.com"],
+    "salesforce": ["salesforce.com"],
+    "slack": ["slack.com"],
+    "zoom": ["zoom.us"],
+    "github": ["github.com"],
+    "gitlab": ["gitlab.com"],
+    "bitbucket": ["bitbucket.org"],
+    "binance": ["binance.com"],
+    "kraken": ["kraken.com"],
+    "metamask": ["metamask.io"],
+    "opensea": ["opensea.io"],
+    "irs_state": ["state.gov"],  # state-level tax agencies
+    "ssa": ["ssa.gov"],          # Social Security Administration
+    "medicare": ["medicare.gov"]
+
 }
 
 # endings that show up a lot in spam/scam domains
 BAD_TLDS = ["xyz", "top", "click", "zip", "work", "tk", "ml", "ga", "cf", "gq",
-            "country", "loan", "win", "review", "icu", "buzz", "cyou", "rest"]
+            "country", "loan", "win", "review", "icu", "buzz", "cyou", "rest", "cam", "mom", "mov", "bar",
+   "bid", "biz", "info", "online", "site", "website", "space", "fun", "live", "life", "press", "stream", "download",
+   "date", "party", "trade", "science", "accountant", "faith", "cricket", "host", "pw", "cc", "su", "ru", "cn"]
 
 SHORTENERS = ["bit.ly", "tinyurl.com", "t.co", "goo.gl", "ow.ly", "is.gd",
-              "buff.ly", "cutt.ly", "rb.gy", "shorturl.at", "tiny.cc"]
+              "buff.ly", "cutt.ly", "rb.gy", "shorturl.at", "tiny.cc", "bit.do", "t.ly", "shorte.st", "adf.ly",
+    "bc.vc", "soo.gd", "lnkd.in", "s.id", "v.gd", "tr.im", "tiny.one", "short.cm", "short.io", "rebrand.ly", "yourls.org",
+    "shortest.link", "shorturl.gg", "gg.gg", "qr.ae", "u.to", "2.gp", "rb.gd", "zi.ma", "clck.ru", "vk.cc", "t2m.io",
+    "lnk.bio", "linktr.ee", "smarturl.it", "hyperurl.co"]
 
 # domains like bbc.co.uk have two parts at the end
-TWO_PART_TLDS = ["co.uk", "com.au", "co.nz", "co.jp", "com.br", "co.in", "org.uk", "ac.uk"]
+TWO_PART_TLDS = ["co.uk", "com.au", "co.nz", "co.jp", "com.br", "co.in", "org.uk", "ac.uk", "com.sg", "com.hk", "com.cn", 
+   "com.tw", "com.mx", "com.ar", "com.co", "com.ng", "com.ph", "com.sa", "com.tr", "com.pk", "com.my", "co.kr", "co.id",
+    "co.ke", "co.za", "co.th", "co.il", "co.ve", "co.at", "co.rs", "co.tz", "net.au", "net.nz", "net.uk", "gov.uk", "gov.au", 
+    "gov.in", "edu.au", "edu.in"]
 
 # phrases that show up a lot in phishing emails
 KEYWORDS = {
     "urgency": ["act now", "immediately", "urgent", "within 24 hours", "within 48 hours",
                 "as soon as possible", "expires today", "final notice", "last warning",
-                "time sensitive", "right away"],
+                "time sensitive", "right away", "take action now", "your immediate attention",
+               "respond immediately", "critical update", "do not ignore", "final attempt",
+               "your response is required", "deadline approaching", "action required", "before it is too late"],
     "threats": ["account will be suspended", "account has been suspended",
                 "account will be closed", "account has been locked", "unauthorized activity",
                 "unusual activity", "suspicious activity", "legal action",
-                "permanently disabled", "will be terminated", "access will be limited"],
+                "permanently disabled", "will be terminated", "access will be limited", "your account will be deactivated",
+               "your access will be revoked", "your benefits will be terminated", "your card will be blocked",
+               "your payment has been declined", "your account is at risk", "security breach detected",
+               "your information has been compromised", "your account is under review", "your account has been flagged"],
     "credential requests": ["verify your account", "confirm your identity",
                             "confirm your password", "update your password",
                             "update your payment", "update your billing",
                             "enter your password", "login to your account",
                             "log in to verify", "verify your identity",
                             "social security number", "security question",
-                            "re-enter your", "validate your account"],
+                            "re-enter your", "validate your account", "verify your email",
+                           "verify your phone number", "update your security settings", "confirm your details",
+                           "confirm your credentials", "validate your login", "reset your password", "reactivate your account", 
+                           "secure your account", "authenticate your identity", "provide your credentials", "confirm your account ownership", 
+                           "verify your payment information", "update your security questions"],
     "money/rewards": ["gift card", "wire transfer", "you have won", "claim your prize",
                       "lottery", "inheritance", "unclaimed funds", "bitcoin",
-                      "cryptocurrency payment", "refund is pending",
-                      "you are eligible", "free gift"],
+                      "cryptocurrency payment", "refund is pending", "you are eligible", "free gift", "bonus payout", "tax refund available", 
+                     "stimulus payment", "settlement funds", "compensation available", "financial opportunity", "exclusive offer", 
+                     "redeem your reward", "your refund is ready", "pending disbursement", "claim your compensation",
+                     "your payment is waiting", "your invoice is overdue", "outstanding balance", "your account has a credit"],
     "generic greeting": ["dear customer", "dear user", "dear account holder", "dear valued",
                          "dear member", "dear client", "dear sir/madam",
-                         "dear sir or madam", "dear beneficiary"],
+                         "dear sir or madam", "dear beneficiary", "dear valued customer", "dear account owner",
+                        "hello user", "attention customer", "attention account holder", "greetings", "hello member"],
     "odd phrasing": ["kindly", "do the needful", "click here", "click the link below",
-                     "open the attached", "see attached invoice", "confidential and urgent"],
+                     "open the attached", "see attached invoice", "confidential and urgent",  "kindly update", "kindly respond", 
+                     "kindly verify", "kindly login", "kindly assist", "for your kind attention", "for your urgent action", 
+                     "please be informed", "your cooperation is appreciated", "follow the instructions", "proceed with the verification", 
+                     "open the secure document", "download the attachment", "view the attached file", "check the attached form", 
+                     "click to proceed", "follow the secure link"],
 }
 
 MISSPELLINGS = ["recieve", "acount", "accout", "verfy", "verifiy", "securty", "secuirty",
                 "immediatly", "immediatley", "pasword", "passwrod", "informations",
                 "confirmtion", "suspeneded", "suspened", "responce", "transction",
-                "paymant", "banck", "kindy", "notifcation", "authenticaton"]
+                "paymant", "banck", "kindy", "notifcation", "authenticaton", "recipt", "reciept", "adress", "addres", 
+                "acess", "acces", "verfication", "verficate", "securley", "securly", "imediately", "imediatley",
+                "passwrod", "paswrod", "informaiton", "informtion", "confirmmation", "confrimation", "susspended", "susspend", 
+                "responce", "repsonse", "transacton", "transactoin", "paymnet", "paymants", "bancking", "bnank", 
+                "kindley", "kindely", "notificaton", "notifcation", "authentcation", "authentificaton", "updation", "updattion", 
+                "verificaton", "verificaiton", "creadit", "creditt", "accounnt", "accounnt", "reacivate", "reactiavte", 
+                "unautorized", "unathorized", "suspicius", "suspicous", "activty", "actvity"]
 
 BAD_FILES = [".exe", ".scr", ".js", ".vbs", ".bat", ".cmd", ".msi", ".jar", ".iso",
-             ".img", ".lnk", ".ps1", ".hta", ".com", ".pif", ".wsf"]
-MACRO_FILES = [".docm", ".xlsm", ".pptm"]
-ARCHIVES = [".zip", ".rar", ".7z", ".gz", ".tar"]
-NORMAL_FILES = [".pdf", ".doc", ".docx", ".xls", ".xlsx", ".txt", ".jpg", ".png"]
+             ".img", ".lnk", ".ps1", ".hta", ".com", ".pif", ".wsf",  
+             ".msp",      # Windows installer patch
+             ".dll",      # malicious DLLs
+             ".sys",      # driver-level malware
+             ".drv",      # malicious drivers
+             ".reg",      # registry modification payloads
+             ".inf",      # autorun.inf malware
+             ".scf",      # Windows Explorer command files
+             ".url",      # malicious URL shortcut files
+             ".apk",      # Android malware
+             ".ipa",      # iOS app packages (rare but abused)
+             ".xll",      # Excel add-in malware
+             ".xlam",     # Excel macro add-in
+             ".vbe",      # encoded VBScript
+             ".jse",      # encoded JavaScript
+             ".ws",       # Windows script
+             ".wsf",      # Windows script file (you already have, but keeping for completeness)
+             ".psm1",     # PowerShell module
+             ".psd1",     # PowerShell data file
+             ".psc1",     # PowerShell console file
+             ".cmdline",  # malicious command-line droppers
+             ".gadget",   # Windows gadget malware
+             ".mht",      # MHTML phishing pages
+             ".chm",      # compiled HTML help (malware vector)
+             ".sct",      # Windows scriptlet file
+             ".bin",      # binary payloads
+             ".dat",      # disguised malware payloads
+             ".tmp",      # malware dropper temp files
+             ".pkg",      # macOS installer (abused)
+             ".dmg",      # macOS disk image (abused)
+             ".run",      # Linux installer
+             ".elf",      # Linux malware
+             ".sh",       # shell scripts
+             ".py",       # Python malware scripts
+             ".pl",       # Perl malware scripts
+             ".rb",       # Ruby malware scripts
+             ".php",      # webshells
+             ".asp",      # malicious ASP webshells
+             ".aspx",     # malicious ASP.NET webshells
+             ".cgi"       # malicious CGI scripts]
+MACRO_FILES = [".docm", ".xlsm", ".pptm", 
+    ".dotm",   # Word macro-enabled template
+    ".xltm",   # Excel macro-enabled template
+    ".ppam",   # PowerPoint add-in
+    ".ppsm",   # PowerPoint macro-enabled slideshow
+    ".sldm"    # PowerPoint macro-enabled slide]
+ARCHIVES = [".zip", ".rar", ".7z", ".gz", ".tar", ".bz2", ".xz", ".cab", ".ace", ".arj", ".uue", 
+   ".lzh", ".z", ".tgz", ".tbz", ".txz"]
+NORMAL_FILES = [".pdf", ".doc", ".docx", ".xls", ".xlsx", ".txt", ".jpg", ".png", ".jpeg", ".gif", 
+   ".bmp", ".rtf", ".csv", ".odt", ".ods", ".odp", ".heic", ".svg"]
 
 # most points each category can add, so one thing can't max out the score
 CAPS = {"Header": 70, "Links": 55, "Content": 30, "Grammar": 15, "Attachments": 45}
