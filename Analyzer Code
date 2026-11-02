@@ -42,7 +42,7 @@ BRANDS = {
     "coinbase": ["coinbase.com"],
     "youtube": ["youtube.com"],
     "ups": ["ups.com"],
-    "royalmail": ["royalmail.com"]
+    "royalmail": ["royalmail.com"],
     "citi": ["citi.com"],
     "capitalone": ["capitalone.com"],
     "hsbc": ["hsbc.com"],
